@@ -13,13 +13,16 @@ def pedir_valor(mensagem):
 def calcular_total(conta):
     return sum(conta.values())
 
+def formatar_valor(valor):
+    return f'R$ {valor:.2f}'
+
 def verificar_saldo(conta):
     dinheiro = pedir_valor('Quantos você tem para pagar as contas? ')
     saldo = dinheiro - calcular_total(conta)
     if saldo < 0 :
-        print(f'Falta {saldo}')
+        print(f'Falta: {formatar_valor(-saldo)}')
     elif saldo > 0:
-        print(f'Sobra {saldo}')
+        print(f'Sobra: {formatar_valor(saldo)}')
     else:
         print('Pagou tudo certinho, saldo zero! ')
 
@@ -59,9 +62,9 @@ def menu():
 
         if n == 4:
             for t, v in conta.items():
-                print(f'titulo:, {t}, valor, {v}')
+                print(f'titulo: {t}, valor: {formatar_valor(v)}')
             total = calcular_total(conta)
-            print(f'Total: {total}')
+            print(f'Total: {formatar_valor(total)}')
 
         if n == 5:
             verificar_saldo(conta)
