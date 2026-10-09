@@ -8,8 +8,8 @@ def pedir_valor(mensagem):
             if tentativas >= 3:
                 print('Muitas tentativas invalidas.')
             else:
-                print('Digite um numero valido!')
-                
+                print('Entrada invalida! Digite apenas numeros.')
+
 def calcular_total(conta):
     return sum(conta.values())
 
