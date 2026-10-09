@@ -3,7 +3,7 @@ def pedir_valor(mensagem):
         try:
             return float(input(mensagem))
         except ValueError:
-            print('Digite um número válido!')
+            print('Entrada invalida! Digite apenas nuemeros.')
 
 def calcular_total(conta):
     return sum(conta.values())
