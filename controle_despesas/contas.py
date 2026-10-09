@@ -1,10 +1,15 @@
 def pedir_valor(mensagem):
+    tentativas = 0
     while True:
         try:
             return float(input(mensagem))
         except ValueError:
-            print('Digite um número válido!')
-
+            tentativas += 1
+            if tentativas >= 3:
+                print('Muitas tentativas invalidas.')
+            else:
+                print('Digite um numero valido!')
+                
 def calcular_total(conta):
     return sum(conta.values())
 
