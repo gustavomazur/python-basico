@@ -1,15 +1,14 @@
 def pedir_valor(mensagem):
     tentativas = 0
-    while True:
+    while tentativas < 3:
         try:
             return float(input(mensagem))
         except ValueError:
             tentativas += 1
-            if tentativas >= 3:
-                print('Muitas tentativas invalidas.')
-            else:
-                print('Entrada invalida! Digite apenas numeros.')
-
+            print('Entrada invalida! Digite apenas numeros.')
+    print('Muitas tentativas invalidas.')
+    return None    
+    
 def calcular_total(conta):
     return sum(conta.values())
 
@@ -17,7 +16,9 @@ def formatar_valor(valor):
     return f'R$ {valor:.2f}'
 
 def verificar_saldo(conta):
-    dinheiro = pedir_valor('Quantos você tem para pagar as contas? ')
+    dinheiro = pedir_valor('Quanto você tem para pagar as contas? ')
+    if dinheiro is None:
+        return
     saldo = dinheiro - calcular_total(conta)
     if saldo < 0 :
         print(f'Falta: {formatar_valor(-saldo)}')
@@ -29,8 +30,7 @@ def verificar_saldo(conta):
 def menu():
     conta = dict()
 
-    valido = False
-    while not valido:
+    while True:
         n = pedir_valor('''Escolha uma opção
         (1)-adicionar conta
         (2)-remover conta
@@ -39,10 +39,15 @@ def menu():
         (5)-verificar_saldo
         (6)-sair
         Digite a opção desejada: ''')
+        if n is None:
+            break
 
         if n == 1:
             titulo = str(input('Titulo: '))
-            conta[titulo] = pedir_valor('valor: ')
+            valor = pedir_valor('Valor: ')
+            if valor is not None:
+                conta[titulo] = valor
+                print('Conta adicionada')
 
         if n == 2:
             remover = input('Qual conta deseja remover? ')
@@ -55,8 +60,10 @@ def menu():
         if n == 3:
             editar = input('Qual conta deseja editar? ')
             if editar in conta:
-                conta[editar] = pedir_valor('Novo valor: ')
-                print('Conta editada')
+                valor = pedir_valor('Novo valor: ')
+                if valor is not None:
+                    conta[editar] = valor
+                    print('Conta editada')
             else:
                 print('conta não encontrada')
 
